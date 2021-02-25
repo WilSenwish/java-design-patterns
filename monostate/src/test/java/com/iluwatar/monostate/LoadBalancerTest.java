@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright © 2014-2021 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +20,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package com.iluwatar.monostate;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -33,6 +32,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Date: 12/21/15 - 12:26 PM
@@ -43,29 +44,29 @@ public class LoadBalancerTest {
 
   @Test
   public void testSameStateAmongstAllInstances() {
-    final LoadBalancer firstBalancer = new LoadBalancer();
-    final LoadBalancer secondBalancer = new LoadBalancer();
+    final var firstBalancer = new LoadBalancer();
+    final var secondBalancer = new LoadBalancer();
     firstBalancer.addServer(new Server("localhost", 8085, 6));
     // Both should have the same number of servers.
-    assertTrue(firstBalancer.getNoOfServers() == secondBalancer.getNoOfServers());
+    assertEquals(firstBalancer.getNoOfServers(), secondBalancer.getNoOfServers());
     // Both Should have the same LastServedId
-    assertTrue(firstBalancer.getLastServedId() == secondBalancer.getLastServedId());
+    assertEquals(firstBalancer.getLastServedId(), secondBalancer.getLastServedId());
   }
 
   @Test
   public void testServe() {
-    final Server server = mock(Server.class);
+    final var server = mock(Server.class);
     when(server.getHost()).thenReturn("testhost");
     when(server.getPort()).thenReturn(1234);
     doNothing().when(server).serve(any(Request.class));
 
-    final LoadBalancer loadBalancer = new LoadBalancer();
+    final var loadBalancer = new LoadBalancer();
     loadBalancer.addServer(server);
 
     verifyZeroInteractions(server);
 
-    final Request request = new Request("test");
-    for (int i = 0; i < loadBalancer.getNoOfServers() * 2; i++) {
+    final var request = new Request("test");
+    for (var i = 0; i < loadBalancer.getNoOfServers() * 2; i++) {
       loadBalancer.serverRequest(request);
     }
 

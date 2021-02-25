@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright © 2014-2021 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package com.iluwatar.hexagonal.eventlog;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.iluwatar.hexagonal.domain.PlayerDetails;
 import com.iluwatar.hexagonal.mongo.MongoConnectionPropertiesLoader;
@@ -29,13 +32,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * Tests for Mongo event log
  */
 @Disabled
-public class MongoEventLogTest {
+class MongoEventLogTest {
 
   private static final String TEST_DB = "lotteryDBTest";
   private static final String TEST_EVENTS_COLLECTION = "testEvents";
@@ -43,9 +44,9 @@ public class MongoEventLogTest {
   private MongoEventLog mongoEventLog;
 
   @BeforeEach
-  public void init() {
+  void init() {
     MongoConnectionPropertiesLoader.load();
-    MongoClient mongoClient = new MongoClient(System.getProperty("mongo-host"),
+    var mongoClient = new MongoClient(System.getProperty("mongo-host"),
         Integer.parseInt(System.getProperty("mongo-port")));
     mongoClient.dropDatabase(TEST_DB);
     mongoClient.close();
@@ -53,13 +54,13 @@ public class MongoEventLogTest {
   }
 
   @Test
-  public void testSetup() {
+  void testSetup() {
     assertEquals(0, mongoEventLog.getEventsCollection().count());
   }
 
   @Test
-  public void testFundTransfers() {
-    PlayerDetails playerDetails = new PlayerDetails("john@wayne.com", "000-000", "03432534543");
+  void testFundTransfers() {
+    var playerDetails = new PlayerDetails("john@wayne.com", "000-000", "03432534543");
     mongoEventLog.prizeError(playerDetails, 1000);
     assertEquals(1, mongoEventLog.getEventsCollection().count());
     mongoEventLog.prizeError(playerDetails, 1000);
