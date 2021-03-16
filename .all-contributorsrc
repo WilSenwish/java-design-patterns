@@ -1404,6 +1404,33 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "richardmr36",
+      "name": "Martel Richard",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19147333?v=4",
+      "profile": "https://github.com/richardmr36",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "va1m",
+      "name": "va1m",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17025445?v=4",
+      "profile": "https://github.com/va1m",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "noamgrinch",
+      "name": "Noam Greenshtain",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31648669?v=4",
+      "profile": "https://github.com/noamgrinch",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 4,
